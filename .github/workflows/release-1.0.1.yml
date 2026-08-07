@@ -1,0 +1,75 @@
+name: Release 1.0.1
+
+on:
+  schedule:
+    # 10:00 UYT = 13:00 UTC on August 7, 2026.
+    - cron: '0 13 7 8 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release-and-deploy:
+    runs-on: windows-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Check release date
+        id: gate
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%Y-%m-%d)" = "2026-08-07" ]; then
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.gate.outputs.should_release == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        if: steps.gate.outputs.should_release == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Rust
+        if: steps.gate.outputs.should_release == 'true'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable-x86_64-pc-windows-msvc
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build Windows installer
+        if: steps.gate.outputs.should_release == 'true'
+        shell: pwsh
+        run: |
+          npm ci
+          npm run package:win
+          "VERSION=$(node -p \"require('./package.json').version\")" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Create GitHub Release
+        if: steps.gate.outputs.should_release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "v${VERSION}" \
+            "src-tauri/target/release/bundle/nsis/Vortex-Optimizer-${VERSION}-setup.exe" \
+            --title "Vortex Optimizer v${VERSION}" \
+            --generate-notes \
+            --latest
+
+      - name: Deploy update endpoint to Vercel
+        if: steps.gate.outputs.should_release == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        shell: pwsh
+        run: |
+          npx vercel@latest pull --yes --environment=production --token $env:VERCEL_TOKEN
+          npx vercel@latest build --prod --token $env:VERCEL_TOKEN
+          npx vercel@latest deploy --prebuilt --prod --token $env:VERCEL_TOKEN

@@ -1,0 +1,315 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================
+   Vortex-Optimizer design tokens — a Fluent-inspired system with its own identity.
+   Surfaces are deliberately translucent so the Win11 Mica backdrop reads
+   through the whole shell.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --scrim: rgba(246, 247, 250, 0.72);
+  --bg: rgba(255, 255, 255, 0.5);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-hover: rgba(255, 255, 255, 0.9);
+  --elevated: rgba(255, 255, 255, 0.94);
+  --sunken: rgba(15, 18, 28, 0.04);
+  --border: rgba(15, 18, 28, 0.09);
+  --border-strong: rgba(15, 18, 28, 0.16);
+  --fg: #14161c;
+  --muted: rgba(20, 22, 28, 0.62);
+  --subtle: rgba(20, 22, 28, 0.42);
+  --rail: rgba(255, 255, 255, 0.42);
+  --shadow-card: 0 1px 2px rgba(15, 18, 28, 0.06), 0 8px 24px -12px rgba(15, 18, 28, 0.18);
+  --shadow-pop: 0 12px 40px -8px rgba(15, 18, 28, 0.28);
+  --grid-line: rgba(15, 18, 28, 0.07);
+
+  --success: #0f8a4d;
+  --success-soft: rgba(15, 138, 77, 0.12);
+  --warning: #b06c00;
+  --warning-soft: rgba(176, 108, 0, 0.13);
+  --danger: #cc2f3b;
+  --danger-soft: rgba(204, 47, 59, 0.12);
+  --info: #1b6ec2;
+  --info-soft: rgba(27, 110, 194, 0.12);
+
+  --accent: #2f7dfa;
+  --accent-hi: #6ea6ff;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(47, 125, 250, 0.13);
+  --accent-ring: rgba(47, 125, 250, 0.4);
+  --brand-a: #6d5efc;
+  --brand-b: #29c7ff;
+
+  --radius: 6px;
+  --dur: 200ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --scrim: #0d0e12;
+  --bg: #121319;
+  --card: #171821;
+  --card-hover: #1d1e2a;
+  --elevated: #212330;
+  --sunken: #121319;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --fg: #f2f3f7;
+  --muted: rgba(240, 242, 248, 0.68);
+  --subtle: rgba(240, 242, 248, 0.45);
+  --rail: #13141a;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+  --shadow-pop: 0 16px 48px -12px rgba(0, 0, 0, 0.75);
+  --grid-line: rgba(255, 255, 255, 0.06);
+
+  --success: #4ad991;
+  --success-soft: rgba(74, 217, 145, 0.14);
+  --warning: #ffc24b;
+  --warning-soft: rgba(255, 194, 75, 0.14);
+  --danger: #ff6d7a;
+  --danger-soft: rgba(255, 109, 122, 0.14);
+  --info: #63b3ff;
+  --info-soft: rgba(99, 179, 255, 0.14);
+
+  --accent: #4f97ff;
+  --accent-hi: #8fbcff;
+  --accent-fg: #06101f;
+  --accent-soft: rgba(79, 151, 255, 0.16);
+  --accent-ring: rgba(79, 151, 255, 0.45);
+}
+
+/* Accent identities -------------------------------------------------------- */
+[data-accent='violet'] {
+  --accent: #8b5cf6;
+  --accent-hi: #b79bff;
+  --accent-soft: rgba(139, 92, 246, 0.16);
+  --accent-ring: rgba(139, 92, 246, 0.45);
+  --brand-a: #8b5cf6;
+  --brand-b: #f472d0;
+}
+[data-accent='teal'] {
+  --accent: #14b8a6;
+  --accent-hi: #5fe3d3;
+  --accent-soft: rgba(20, 184, 166, 0.16);
+  --accent-ring: rgba(20, 184, 166, 0.45);
+  --brand-a: #0ea5a4;
+  --brand-b: #7dd3fc;
+}
+[data-accent='magenta'] {
+  --accent: #e0479e;
+  --accent-hi: #ff86c6;
+  --accent-soft: rgba(224, 71, 158, 0.16);
+  --accent-ring: rgba(224, 71, 158, 0.45);
+  --brand-a: #e0479e;
+  --brand-b: #a855f7;
+}
+[data-accent='amber'] {
+  --accent: #f59e0b;
+  --accent-hi: #ffc861;
+  --accent-fg: #1b1204;
+  --accent-soft: rgba(245, 158, 11, 0.16);
+  --accent-ring: rgba(245, 158, 11, 0.45);
+  --brand-a: #f59e0b;
+  --brand-b: #fb7185;
+}
+[data-accent='green'] {
+  --accent: #22c07a;
+  --accent-hi: #6ee7b7;
+  --accent-fg: #04170e;
+  --accent-soft: rgba(34, 192, 122, 0.16);
+  --accent-ring: rgba(34, 192, 122, 0.45);
+  --brand-a: #22c07a;
+  --brand-b: #a3e635;
+}
+
+@theme inline {
+  --color-scrim: var(--scrim);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-elevated: var(--elevated);
+  --color-sunken: var(--sunken);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-rail: var(--rail);
+  --color-accent: var(--accent);
+  --color-accent-hi: var(--accent-hi);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --radius-card: 8px;
+  --radius-xl2: 12px;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+
+  --font-sans: 'Segoe UI Variable Text', 'Segoe UI', Inter,
+    system-ui, -apple-system, sans-serif;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', Consolas, ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+  }
+
+  html {
+    font-size: calc(16px * var(--ui-scale, 1));
+  }
+
+  body {
+    background: #0f1015;
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    user-select: none;
+    cursor: default;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  input,
+  textarea {
+    user-select: text;
+  }
+}
+
+@layer utilities {
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* Acrylic-ish layered surface used by popovers, dialogs and the rail. */
+  .acrylic {
+    background: var(--elevated);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+  }
+
+  .card-surface {
+    border-radius: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .brand-gradient {
+    background-image: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(100deg, var(--fg), var(--accent-hi));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grid-lines {
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .scroll-area {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+
+  .scroll-area::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  .scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-area::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    border: 4px solid transparent;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--fg) 22%, transparent);
+  }
+  .scroll-area::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--fg) 38%, transparent);
+  }
+
+  .no-anim,
+  .no-anim * {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+
+  /* Settings → "Transparency effects" off: flatten the Mica/acrylic layering to a solid fill. */
+  .no-transparency .acrylic,
+  .no-transparency .card-surface {
+    background: var(--elevated) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Shared keyframes --------------------------------------------------------- */
+@keyframes xt-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes xt-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-ring);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes xt-dash {
+  to {
+    stroke-dashoffset: -600;
+  }
+}

@@ -1,0 +1,2579 @@
+{
+  "declarative": [
+    {
+      "kind": "registry",
+      "source": "privacy/account-info",
+      "id": "pr.account",
+      "name": "Account information",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Denies app access to account information through Windows capability consent.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userAccountInformation",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/activity-history",
+      "id": "pr.activity",
+      "name": "Activity history",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables device activity feed collection, publishing and upload policies.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "name": "PublishUserActivities",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "name": "EnableActivityFeed",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "name": "PublishUserActivities",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "name": "UploadUserActivities",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/advertising-id",
+      "id": "pr.advertising",
+      "name": "Advertising ID",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables the advertising identifier for the current Windows user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "name": "Enabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/app-diagnostics",
+      "id": "pr.appdiag",
+      "name": "App diagnostics",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Denies app diagnostic access through Windows capability consent.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appDiagnostics",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/camera",
+      "id": "pr.camera",
+      "name": "Camera access",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Denies app camera access through Windows capability consent.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\webcam",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/cloud-search",
+      "id": "pr.cloudsearch",
+      "name": "Cloud content search",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Stops Windows Search from showing Microsoft account cloud content.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+          "name": "IsMSACloudSearchEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/contacts",
+      "id": "pr.contacts",
+      "name": "Contacts access",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Blocks Microsoft Store apps from accessing the Contacts capability.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\contacts",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/cortana",
+      "id": "pr.cortana",
+      "name": "Cortana and voice assistant",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables the Cortana policy for this user and device.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "name": "AllowCortana",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "name": "AllowCortana",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/diagnostic-data",
+      "id": "pr.diag",
+      "name": "Diagnostic data",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Sets the supported diagnostic-data policy values to their minimum level.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "AllowTelemetry",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "name": "AllowTelemetry",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "name": "AllowTelemetry",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "AllowTelemetry",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "name": "MaxTelemetryAllowed",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+          "name": "MaxTelemetryAllowed",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/disable-copilot",
+      "id": "pr.copilot",
+      "name": "Disable Copilot",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Disables Windows Copilot through user and device policy. It does not remove installed components.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "name": "TurnOffWindowsCopilot",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "name": "TurnOffWindowsCopilot",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/documents",
+      "id": "pr.docs",
+      "name": "Documents and pictures access",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Blocks broad documents and pictures library access for Microsoft Store apps.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\documentsLibrary",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\picturesLibrary",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/edge-sidebar",
+      "id": "pr.edge",
+      "name": "Disable Edge sidebar",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables the Microsoft Edge sidebar through policy without removing the browser.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "name": "HubsSidebarEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/feedback-frequency",
+      "id": "pr.feedback",
+      "name": "Feedback frequency",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Suppresses Windows feedback prompts for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Siuf\\Rules",
+          "name": "NumberOfSIUFInPeriod",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/inking-typing",
+      "id": "pr.inking",
+      "name": "Inking and typing data",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Prevents implicit collection of handwriting, typing and contact data.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "name": "RestrictImplicitInkCollection",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\InputPersonalization",
+          "name": "RestrictImplicitTextCollection",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\InputPersonalization\\TrainedDataStore",
+          "name": "HarvestContacts",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/location",
+      "id": "pr.location",
+      "name": "Location service",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Denies device location access through Windows capability consent.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/microphone",
+      "id": "pr.mic",
+      "name": "Microphone access",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Denies app microphone access through Windows capability consent.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\microphone",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/notifications",
+      "id": "pr.notif",
+      "name": "Notification access",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Blocks Microsoft Store apps from reading the notification listener capability.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userNotificationListener",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/online-speech",
+      "id": "pr.speech",
+      "name": "Online speech recognition",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Turns off online speech recognition acceptance for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+          "name": "HasAccepted",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/radios",
+      "id": "pr.radios",
+      "name": "Radio control by apps",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Stops Microsoft Store apps from controlling Wi-Fi and Bluetooth radios.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\radios",
+          "name": "Value",
+          "kind": "String",
+          "value": "Deny"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/store-personalization",
+      "id": "pr.store",
+      "name": "Store personalization",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables Windows content delivery and personalized recommendations for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "ContentDeliveryAllowed",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContentEnabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "FeatureManagementEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/tailored-experiences",
+      "id": "pr.tailored",
+      "name": "Tailored experiences",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables personalised Windows experiences based on diagnostic data.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/background-apps",
+      "id": "p.bgapps",
+      "name": "Background apps",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Prevents Microsoft Store apps from running in the background for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+          "name": "GlobalUserDisabled",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/clear-pagefile",
+      "id": "p.paging",
+      "name": "Clear page file at shutdown",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Clears virtual-memory contents during shutdown. This improves privacy but can make shutdown slower.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "ClearPageFileAtShutdown",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/delivery-optimization",
+      "id": "p.deliveryopt",
+      "name": "Delivery Optimization",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Restricts Delivery Optimization to direct downloads instead of peer-to-peer sharing.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+          "name": "DODownloadMode",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+          "name": "DODownloadMode",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/edge-preload",
+      "id": "p.edgepreload",
+      "name": "Edge preloading",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Prevents Microsoft Edge from preloading at sign-in and remaining active in the background.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge\\Recommended",
+          "name": "BackgroundModeEnabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge\\Recommended",
+          "name": "StartupBoostEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/error-reporting",
+      "id": "p.errorreport",
+      "name": "Windows Error Reporting",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Prevents Windows Error Reporting from sending crash reports while leaving local diagnostics available.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Error Reporting",
+          "name": "Disabled",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Error Reporting",
+          "name": "Disabled",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/fast-startup",
+      "id": "p.faststartup",
+      "name": "Fast Startup",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Disables hybrid shutdown (Fast Startup) while leaving hibernation itself unchanged.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+          "name": "HiberbootEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "source": "performance/fax",
+      "id": "p.fax",
+      "name": "Fax service",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Stops and disables the legacy Windows Fax service.",
+      "serviceName": "Fax",
+      "requiresRestart": true
+    },
+    {
+      "kind": "registry",
+      "source": "performance/foreground-priority",
+      "id": "p.prio",
+      "name": "Foreground priority boost",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Sets Windows processor scheduling to favor foreground programs.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+          "name": "Win32PrioritySeparation",
+          "kind": "DWord",
+          "value": 38
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/game-dvr",
+      "id": "p.superfetchgame",
+      "name": "Game DVR background capture",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables Xbox Game DVR background recording while leaving manual capture tools available.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+          "name": "AppCaptureEnabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\System\\GameConfigStore",
+          "name": "GameDVR_Enabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/menu-delay",
+      "id": "p.menushow",
+      "name": "Menu show delay: 0 ms",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Sets the Windows menu show delay to zero for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Desktop",
+          "name": "MenuShowDelay",
+          "kind": "String",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/storage-sense",
+      "id": "p.storagesense",
+      "name": "Disable Storage Sense automatic cleanup",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Stops Storage Sense from automatically freeing up space on a schedule.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+          "name": "01",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "gaming/task-priority",
+      "id": "g.priority",
+      "name": "Games task priority boost",
+      "category": "Gaming",
+      "risk": "Moderate",
+      "description": "Raises the GPU and CPU scheduling priority Windows grants to foreground games.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Task\\Games",
+          "name": "GPU Priority",
+          "kind": "DWord",
+          "value": 8
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Task\\Games",
+          "name": "Priority",
+          "kind": "DWord",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "privacy/widgets",
+      "id": "pr.widgets",
+      "name": "Disable Widgets feed service",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Blocks the Widgets news and interests feed entirely via policy, not just the taskbar icon.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+          "name": "AllowNewsAndInterests",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "network/disable-ipv6",
+      "id": "n.ipv6",
+      "name": "IPv6 stack",
+      "category": "Network",
+      "risk": "Moderate",
+      "description": "Disables the IPv6 stack on all adapters and tunnel interfaces.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+          "name": "DisabledComponents",
+          "kind": "DWord",
+          "value": 255
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/network-throttling",
+      "id": "n.throttle",
+      "name": "Multimedia network throttling",
+      "category": "Network",
+      "risk": "Moderate",
+      "description": "Removes the Windows multimedia network throughput cap. It can increase CPU and battery use.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "NetworkThrottlingIndex",
+          "kind": "DWord",
+          "value": 4294967295
+        }
+      ]
+    },
+    {
+      "kind": "powercfg",
+      "source": "performance/pcie-link-state",
+      "id": "p.pciexpress",
+      "name": "PCIe link state power",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Keeps PCIe links at maximum performance; this increases idle power use.",
+      "requiresRestart": false,
+      "subgroup": "501a4d13-42af-4429-9fd1-a8218c268e20",
+      "setting": "ee12f906-d277-404b-b6da-e5fa1a576df5",
+      "ac": 0,
+      "dc": 0
+    },
+    {
+      "kind": "registry",
+      "source": "performance/power-throttling",
+      "id": "p.throttling",
+      "name": "Power throttling",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Prevents Windows from lowering CPU performance for background processes.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+          "name": "PowerThrottlingOff",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "source": "performance/print-spooler",
+      "id": "p.printspool",
+      "name": "Print Spooler",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Stops and disables the Print Spooler service. Do not apply when you print or use virtual printers.",
+      "serviceName": "Spooler",
+      "requiresRestart": true
+    },
+    {
+      "kind": "service",
+      "source": "performance/remote-registry",
+      "id": "p.remote",
+      "name": "Remote Registry",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Stops and disables Remote Registry to prevent remote registry access.",
+      "serviceName": "RemoteRegistry",
+      "requiresRestart": true
+    },
+    {
+      "kind": "registry",
+      "source": "performance/search-web-results",
+      "id": "p.wsearchweb",
+      "name": "Web results in Search",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables Bing suggestions in Start and Windows Search for the current user.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "DisableSearchBoxSuggestions",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/shell-animations",
+      "id": "p.animations",
+      "name": "Reduce shell animations",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables minimize and maximize window animations for the current user.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Desktop\\WindowMetrics",
+          "name": "MinAnimate",
+          "kind": "String",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/store-auto-update",
+      "id": "p.autoupdatestore",
+      "name": "Store app auto-update",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Sets Microsoft Store apps to manual updates through the Store policy.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Policies\\Microsoft\\WindowsStore",
+          "name": "AutoDownload",
+          "kind": "DWord",
+          "value": 2
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsStore",
+          "name": "AutoDownload",
+          "kind": "DWord",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "source": "performance/sysmain",
+      "id": "p.sysmain",
+      "name": "Disable SysMain",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Stops and disables the SysMain service. Recommended only for SSD-only systems.",
+      "serviceName": "SysMain",
+      "requiresRestart": true
+    },
+    {
+      "kind": "registry",
+      "source": "performance/tips",
+      "id": "p.tips",
+      "name": "Tips, tricks and suggestions",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Turns off Windows soft-landing tips and suggestions for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SoftLandingEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "performance/transparency",
+      "id": "p.transparency",
+      "name": "Disable transparency effects",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Turns off Windows transparency effects for the current user.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "name": "EnableTransparency",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "powercfg",
+      "source": "performance/usb-selective-suspend",
+      "id": "p.usbsuspend",
+      "name": "USB selective suspend",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables USB selective suspend on AC power while preserving battery behavior on DC power.",
+      "requiresRestart": false,
+      "subgroup": "2a737441-1930-4402-8d77-b2bebba308a3",
+      "setting": "48e6b7a6-50f5-4782-a5d4-53bb8f07e226",
+      "ac": 0,
+      "dc": 1
+    },
+    {
+      "kind": "service",
+      "source": "performance/windows-search",
+      "id": "p.search",
+      "name": "Windows Search indexing",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Stops and disables Windows Search indexing. Outlook, Start and Explorer search may become slower or incomplete.",
+      "serviceName": "WSearch",
+      "requiresRestart": true
+    },
+    {
+      "kind": "registry",
+      "source": "windows/clock-seconds",
+      "id": "w.tb.seconds",
+      "name": "Seconds in the clock",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows seconds in the Windows taskbar clock.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowSecondsInSystemClock",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/compact-explorer",
+      "id": "w.ex.compact",
+      "name": "Compact Explorer view",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Uses tighter row spacing in File Explorer.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "UseCompactMode",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/disable-lockscreen-spotlight",
+      "id": "w.ls.spotlight",
+      "name": "Disable lock screen Spotlight",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Stops rotating Spotlight images on the lock screen.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "RotatingLockScreenEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/disable-lockscreen-tips",
+      "id": "w.ls.tips",
+      "name": "Disable lock screen tips and ads",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Removes Spotlight facts, suggestions and promotional overlays from the lock screen.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "RotatingLockScreenOverlayEnabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338387Enabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/disable-search-highlights",
+      "id": "w.sr.highlight",
+      "name": "Disable search highlights",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Removes daily illustrations and promotional highlights from Windows Search.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+          "name": "IsDynamicSearchBoxEnabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/explorer-this-pc",
+      "id": "w.ex.thispc",
+      "name": "Open to This PC",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Sets Explorer to open at This PC.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "LaunchTo",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/hide-chat",
+      "id": "w.tb.chat",
+      "name": "Hide Chat button",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Hides the Chat taskbar button.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarMn",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/hide-copilot-button",
+      "id": "w.cp.copilot",
+      "name": "Hide Copilot button",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Removes the Copilot entry point from the taskbar without uninstalling Copilot.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowCopilotButton",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/hide-home-recommendations",
+      "id": "w.ex.homeads",
+      "name": "Hide Home recommendations",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Hides recent and recommended items from Explorer Home for the current user.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "name": "ShowRecent",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/hide-task-view",
+      "id": "w.tb.taskview",
+      "name": "Hide Task View button",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Hides the Task View taskbar button.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowTaskViewButton",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/never-combine-taskbar",
+      "id": "w.tb.combine",
+      "name": "Never combine taskbar buttons",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows a separate labelled taskbar button for each window, including on additional displays.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarGlomLevel",
+          "kind": "DWord",
+          "value": 2
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "MMTaskbarGlomLevel",
+          "kind": "DWord",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/search-icon",
+      "id": "w.sr.box",
+      "name": "Search box style: icon only",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Sets the taskbar search control to icon-only mode.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "SearchboxTaskbarMode",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/show-file-extensions",
+      "id": "w.ex.ext",
+      "name": "Show file extensions",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Shows known file extensions in Explorer.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "HideFileExt",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/show-hidden-items",
+      "id": "w.ex.hidden",
+      "name": "Show hidden items",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Shows hidden files and folders in Explorer.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Hidden",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "windows/taskbar-left",
+      "id": "w.tb.align",
+      "name": "Left-align the taskbar",
+      "category": "Windows shell",
+      "risk": "Safe",
+      "description": "Moves taskbar icons to the left.",
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarAl",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "advanced/lower-uac",
+      "id": "a.uac",
+      "name": "Lower UAC prompt level",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Lets signed executables elevate without a consent prompt.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "name": "ConsentPromptBehaviorAdmin",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "advanced/smartscreen",
+      "id": "a.smartscreen",
+      "name": "Disable SmartScreen",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Stops reputation checks for downloaded and unrecognised binaries.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+          "name": "EnableSmartScreen",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "advanced/vbs",
+      "id": "a.vbs",
+      "name": "Virtualization-based security",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Disables VBS, HVCI and Credential Guard through policy.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard",
+          "name": "EnableVirtualizationBasedSecurity",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+          "name": "LsaCfgFlags",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "advanced/spectre-meltdown",
+      "id": "a.spectre",
+      "name": "Disable Spectre/Meltdown patches",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Overrides the kernel speculative-execution mitigation set.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "FeatureSettingsOverride",
+          "kind": "DWord",
+          "value": 3
+        },
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "FeatureSettingsOverrideMask",
+          "kind": "DWord",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "advanced/tpm-bypass",
+      "id": "a.tpm",
+      "name": "Bypass TPM requirement checks",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Allows future feature updates on hardware below the TPM 2.0 / CPU baseline.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\Setup\\MoSetup",
+          "name": "AllowUpgradesWithUnsupportedTPMOrCPU",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "source": "advanced/block-windows-update",
+      "id": "a.wu",
+      "name": "Block Windows Update service",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Stops and disables wuauserv, halting all update delivery including security fixes.",
+      "serviceName": "wuauserv",
+      "requiresRestart": true
+    },
+    {
+      "kind": "registry",
+      "source": "winutil+winhance/full-path-titlebar",
+      "id": "w.ex.fullpath",
+      "name": "Full path in title bar",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows the complete folder path in the Explorer window title.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\CabinetState",
+          "name": "FullPath",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil+winhance/taskbar-end-task",
+      "id": "w.tb.endtask",
+      "name": "End Task from taskbar",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Adds \"End task\" to the right-click menu on taskbar apps, like Task Manager.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings",
+          "name": "TaskbarEndTask",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winhance/classic-desktop-icons",
+      "id": "w.ex.desktopicons",
+      "name": "Classic desktop icons",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows This PC, Recycle Bin, Control Panel and Network on the desktop.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "name": "{20D04FE0-3AEA-1069-A2D8-08002B30309D}",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "name": "{645FF040-5081-101B-9F08-00AA002F954E}",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "name": "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\HideDesktopIcons\\NewStartPanel",
+          "name": "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil+winhance/mouse-acceleration",
+      "id": "p.mouseaccel",
+      "name": "Disable mouse acceleration",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Removes \"Enhance pointer precision\" for a flat, 1:1 mouse curve.",
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseSpeed",
+          "kind": "String",
+          "value": "0"
+        },
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseThreshold1",
+          "kind": "String",
+          "value": "0"
+        },
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseThreshold2",
+          "kind": "String",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil/numlock-startup",
+      "id": "w.sys.numlock",
+      "name": "NumLock on at startup",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Turns NumLock on automatically at every sign-in.",
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Keyboard",
+          "name": "InitialKeyboardIndicators",
+          "kind": "String",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil/sticky-keys",
+      "id": "p.stickykeys",
+      "name": "Disable Sticky Keys prompt",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Stops the Sticky Keys popup triggered by pressing Shift five times.",
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Accessibility\\StickyKeys",
+          "name": "Flags",
+          "kind": "String",
+          "value": "506"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil/battery-percentage",
+      "id": "w.ex.battery",
+      "name": "Battery percentage in tray",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows the exact battery percentage next to the tray icon.",
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "IsBatteryPercentageEnabled",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil/always-show-scrollbars",
+      "id": "w.ex.scrollbars",
+      "name": "Always show scrollbars",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Keeps scrollbars visible instead of only while scrolling.",
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Accessibility",
+          "name": "DynamicScrollbars",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winutil+winhance/long-paths",
+      "id": "p.longpaths",
+      "name": "Enable long path support",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Lifts the 260-character path limit for apps that opt in (Git, Node, etc).",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+          "name": "LongPathsEnabled",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "source": "winhance/hags",
+      "id": "p.gpuschedule",
+      "name": "Hardware-accelerated GPU scheduling",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Lets the GPU manage its own video memory queue instead of the CPU. Can cause issues on some older drivers.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "HwSchMode",
+          "kind": "DWord",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.wsl",
+      "name": "Windows Subsystem for Linux",
+      "category": "Developer",
+      "risk": "Moderate",
+      "description": "Runs Linux distributions natively alongside Windows.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "Microsoft-Windows-Subsystem-Linux"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.hyperv",
+      "name": "Hyper-V",
+      "category": "Virtualization",
+      "risk": "Moderate",
+      "description": "Type-1 hypervisor with virtual switch management.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "Microsoft-Hyper-V-All"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.sandbox",
+      "name": "Windows Sandbox",
+      "category": "Virtualization",
+      "risk": "Safe",
+      "description": "Disposable desktop that resets on close.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "Containers-DisposableClientVM"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.vmp",
+      "name": "Virtual Machine Platform",
+      "category": "Virtualization",
+      "risk": "Moderate",
+      "description": "Core virtualization support used by WSL 2.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "VirtualMachinePlatform"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.net35",
+      "name": ".NET Framework 3.5",
+      "category": "Runtime",
+      "risk": "Safe",
+      "description": "Legacy runtime including 2.0 and 3.0.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "NetFx3"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.net48",
+      "name": ".NET Framework 4.8 Advanced Services",
+      "category": "Runtime",
+      "risk": "Safe",
+      "description": "ASP.NET and WCF activation components.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "NetFx4-AdvSrvs"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.smb1",
+      "name": "SMB 1.0/CIFS File Sharing",
+      "category": "Networking",
+      "risk": "Advanced",
+      "description": "Deprecated protocol kept for old NAS devices.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "SMB1Protocol"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.smbdirect",
+      "name": "SMB Direct",
+      "category": "Networking",
+      "risk": "Safe",
+      "description": "RDMA acceleration for file server traffic.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "SmbDirect"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.telnet",
+      "name": "Telnet Client",
+      "category": "Legacy",
+      "risk": "Safe",
+      "description": "Plain-text terminal client for legacy devices.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "TelnetClient"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.tftp",
+      "name": "TFTP Client",
+      "category": "Legacy",
+      "risk": "Safe",
+      "description": "Trivial file transfer for network appliances.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "TFTP"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.powershell2",
+      "name": "Windows PowerShell 2.0 Engine",
+      "category": "Legacy",
+      "risk": "Safe",
+      "description": "Superseded engine kept for compatibility.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "MicrosoftWindowsPowerShellV2Root"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.directplay",
+      "name": "Legacy Components (DirectPlay)",
+      "category": "Legacy",
+      "risk": "Safe",
+      "description": "Networking layer used by pre-2008 games.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "DirectPlay"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.iis",
+      "name": "Internet Information Services",
+      "category": "Developer",
+      "risk": "Moderate",
+      "description": "Windows web server with management console.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "featureName": "IIS-WebServerRole"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.wcf",
+      "name": "Windows Communication Foundation",
+      "category": "Developer",
+      "risk": "Safe",
+      "description": "HTTP and TCP activation for service hosts.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "WCF-HTTP-Activation"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.printvirt",
+      "name": "Print and Document Services",
+      "category": "Networking",
+      "risk": "Safe",
+      "description": "Internet printing and scan management.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "Printing-Foundation-Features"
+    },
+    {
+      "kind": "feature",
+      "source": "features/optional-components",
+      "id": "f.mediafeat",
+      "name": "Media Features",
+      "category": "Runtime",
+      "risk": "Safe",
+      "description": "Windows Media Player and codecs.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "featureName": "MediaPlayback"
+    },
+    {
+      "kind": "registry",
+      "id": "p.8dot3",
+      "name": "Legacy 8.3 filenames",
+      "category": "Performance",
+      "risk": "Advanced",
+      "description": "Disables short-name generation for new NTFS volumes.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+          "name": "NtfsDisable8dot3NameCreation",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.largesys",
+      "name": "Large system cache",
+      "category": "Performance",
+      "risk": "Advanced",
+      "description": "Biases the memory manager toward file-system caching over working sets.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "LargeSystemCache",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.lastaccess",
+      "name": "Last-access timestamps",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Stops NTFS writing an access-time update on every file read.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+          "name": "NtfsDisableLastAccessUpdate",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.mitigations",
+      "name": "Relax CPU mitigations",
+      "category": "Performance",
+      "risk": "Advanced",
+      "description": "Disables Spectre/Meltdown speculative-execution mitigations via FeatureSettingsOverride.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "FeatureSettingsOverride",
+          "kind": "DWord",
+          "value": 3
+        },
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "FeatureSettingsOverrideMask",
+          "kind": "DWord",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.defenderscan",
+      "name": "Idle Defender scans",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Disables Microsoft Defender's automatic scheduled scans via policy.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "name": "DisableScheduledScan",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.restore",
+      "name": "System Restore checkpoints",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Raises the minimum interval between automatic System Restore checkpoints.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore",
+          "name": "SystemRestorePointCreationFrequency",
+          "kind": "DWord",
+          "value": 1440
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.thumbnails",
+      "name": "Thumbnail cache",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables the Explorer thumbnail cache, showing file-type icons instead.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "DisableThumbnailCache",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "id": "p.ndu",
+      "name": "Network Data Usage driver",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Disables the Network Data Usage Monitor (Ndu) service.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "serviceName": "Ndu"
+    },
+    {
+      "kind": "registry",
+      "id": "w.tb.size",
+      "name": "Compact taskbar height",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Uses the smaller taskbar icon size (Windows 11 24H2+).",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarSi",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.sn.layouts",
+      "name": "Snap layouts on hover",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Shows the Snap Layouts flyout when hovering the maximize button.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "EnableSnapAssistFlyout",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.sn.assist",
+      "name": "Snap assist suggestions",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Stops Windows suggesting other windows to fill the remaining screen space.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "SnapAssist",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.wd.widgets",
+      "name": "Widgets board",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Removes the Widgets icon and board from the taskbar.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarDa",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.wd.feed",
+      "name": "Widgets news feed",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Disables the Windows news-and-interests feed content via policy.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds",
+          "name": "EnableFeeds",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.cx.copilot",
+      "name": "Hide Ask Copilot",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Turns off Windows Copilot entry points, including the context menu shortcut, via policy.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "name": "TurnOffWindowsCopilot",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.ex.gallery",
+      "name": "Hide Gallery",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Unpins the Gallery node from the File Explorer navigation pane.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKCU:\\SOFTWARE\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}",
+          "name": "System.IsPinnedToNameSpaceTree",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "a.pagefile",
+      "name": "Manual page file (0 MB)",
+      "category": "Advanced",
+      "risk": "Advanced",
+      "description": "Removes all system-managed paging files, disabling virtual memory.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+          "name": "PagingFiles",
+          "kind": "MultiString",
+          "value": []
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "g.mode",
+      "name": "Game Mode",
+      "category": "Gaming",
+      "risk": "Safe",
+      "description": "Prioritises the foreground game and pauses background work while playing.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\GameBar",
+          "name": "AllowAutoGameMode",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\GameBar",
+          "name": "AutoGameModeEnabled",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "g.hags",
+      "name": "GPU Scheduling",
+      "category": "Gaming",
+      "risk": "Moderate",
+      "description": "Hardware-accelerated GPU scheduling — moves queue management to the GPU. Can cause issues on some older drivers.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": true,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "HwSchMode",
+          "kind": "DWord",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "g.mouse",
+      "name": "Mouse Optimization",
+      "category": "Gaming",
+      "risk": "Safe",
+      "description": "Removes pointer acceleration and applies a raw 1:1 curve.",
+      "requiresElevation": false,
+      "requiresRestorePoint": true,
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseSpeed",
+          "kind": "String",
+          "value": "0"
+        },
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseThreshold1",
+          "kind": "String",
+          "value": "0"
+        },
+        {
+          "path": "HKCU:\\Control Panel\\Mouse",
+          "name": "MouseThreshold2",
+          "kind": "String",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.winai",
+      "name": "Windows AI & Recall",
+      "category": "Privacy",
+      "risk": "Moderate",
+      "description": "Disables Windows Recall, AI-powered search snapshots, and Copilot AI features introduced in Windows 11 24H2+.",
+      "requiresElevation": true,
+      "requiresRestorePoint": true,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "name": "DisableAIDataAnalysis",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "name": "DisableAIDataAnalysis",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "name": "AllowRecallEnablement",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.sys.f1",
+      "name": "F1 Help Key",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Disables the F1 key opening the Windows help browser accidentally. The key still works in other apps.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Classes\\TypeLib\\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\\1.0\\0\\win32",
+          "name": "",
+          "kind": "String",
+          "value": ""
+        },
+        {
+          "path": "HKCU:\\Software\\Classes\\TypeLib\\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\\1.0\\0\\win64",
+          "name": "",
+          "kind": "String",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.netadapter",
+      "name": "NIC Power Save",
+      "category": "Performance",
+      "risk": "Moderate",
+      "description": "Prevents Windows from turning off network adapters to save power. Improves latency consistency. Not recommended for laptops on battery.",
+      "requiresElevation": true,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NdisImPlatform",
+          "name": "SubscriberInitializationRoutine",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.autoplay",
+      "name": "AutoPlay",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables AutoPlay for all media and devices so Windows no longer prompts on USB/disc insertion.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers",
+          "name": "DisableAutoplay",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "p.thumbcache",
+      "name": "Thumbnail Cache Removal",
+      "category": "Performance",
+      "risk": "Safe",
+      "description": "Disables automatic deletion of the thumbnail cache on logoff. Keeps cached thumbnails between sessions for faster folder rendering.",
+      "requiresElevation": true,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VolumeCaches\\Thumbnail Cache",
+          "name": "Autorun",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "pr.bingsearch",
+      "name": "Bing in Start Menu",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Disables Bing web search results inside the Windows Start Menu search box.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "DisableSearchBoxSuggestions",
+          "kind": "DWord",
+          "value": 1
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "BingSearchEnabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "CortanaConsent",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "pr.welcome",
+      "name": "Windows Welcome Experience",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Hides the Windows welcome screen shown after updates and sign-in that highlights new features and suggestions.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-310093Enabled",
+          "kind": "DWord",
+          "value": 0
+        },
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338389Enabled",
+          "kind": "DWord",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "pr.signininfo",
+      "name": "Sign-in Info After Update",
+      "category": "Privacy",
+      "risk": "Safe",
+      "description": "Prevents Windows from using your sign-in info to automatically finish setup after an update or restart.",
+      "requiresElevation": true,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+          "name": "ARSOUserConsent",
+          "kind": "DWord",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.sys.sticky",
+      "name": "Sticky Keys Shortcut",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Disables the Shift key pressed 5 times shortcut that activates Sticky Keys, preventing accidental triggers during gaming.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Control Panel\\Accessibility\\StickyKeys",
+          "name": "Flags",
+          "kind": "String",
+          "value": "506"
+        }
+      ]
+    },
+    {
+      "kind": "registry",
+      "id": "w.tb.endtask2",
+      "name": "End Task in Taskbar",
+      "category": "Windows",
+      "risk": "Safe",
+      "description": "Enables the 'End Task' option when right-clicking on a window in the taskbar, so you can kill frozen apps without opening Task Manager.",
+      "requiresElevation": false,
+      "requiresRestorePoint": false,
+      "requiresRestart": false,
+      "targets": [
+        {
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings",
+          "name": "TaskbarEndTask",
+          "kind": "DWord",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "custom": [
+    {
+      "source": "performance/core-parking",
+      "id": "p.corepark",
+      "name": "Disable core parking"
+    },
+    {
+      "source": "performance/hibernation",
+      "id": "p.hibernate",
+      "name": "Disable hibernation"
+    },
+    {
+      "source": "performance/reserved-storage",
+      "id": "p.reserved",
+      "name": "Reserved storage"
+    },
+    {
+      "source": "performance/telemetry",
+      "id": "p.telemetry",
+      "name": "Disable Telemetry"
+    },
+    {
+      "source": "windows/classic-context-menu",
+      "id": "w.cx.classic",
+      "name": "Classic context menu"
+    },
+    {
+      "source": "gaming/amd-driver-telemetry",
+      "id": "g.amdtelemetry",
+      "name": "AMD Driver Telemetry"
+    },
+    {
+      "source": "gaming/mpo-compatibility",
+      "id": "g.mpo",
+      "name": "MPO Compatibility Fix"
+    }
+  ],
+  "order": [
+    "pr.tailored",
+    "pr.advertising",
+    "pr.inking",
+    "pr.feedback",
+    "pr.speech",
+    "pr.activity",
+    "pr.cloudsearch",
+    "pr.cortana",
+    "pr.location",
+    "pr.camera",
+    "pr.mic",
+    "pr.account",
+    "pr.appdiag",
+    "pr.contacts",
+    "pr.docs",
+    "pr.notif",
+    "pr.radios",
+    "pr.copilot",
+    "pr.store",
+    "pr.edge",
+    "pr.diag",
+    "pr.bingsearch",
+    "pr.welcome",
+    "pr.signininfo",
+    "p.winai",
+    "p.wsearchweb",
+    "p.transparency",
+    "p.menushow",
+    "p.sysmain",
+    "p.printspool",
+    "p.fax",
+    "p.remote",
+    "p.bgapps",
+    "p.tips",
+    "p.telemetry",
+    "p.search",
+    "p.faststartup",
+    "p.throttling",
+    "p.hibernate",
+    "p.deliveryopt",
+    "p.errorreport",
+    "p.autoupdatestore",
+    "p.animations",
+    "p.prio",
+    "p.paging",
+    "p.superfetchgame",
+    "p.edgepreload",
+    "n.throttle",
+    "p.reserved",
+    "p.pciexpress",
+    "p.usbsuspend",
+    "p.corepark",
+    "p.netadapter",
+    "p.autoplay",
+    "p.thumbcache",
+    "w.tb.align",
+    "w.tb.chat",
+    "w.tb.taskview",
+    "w.ex.ext",
+    "w.ex.thispc",
+    "w.sr.box",
+    "w.ex.hidden",
+    "w.ex.compact",
+    "w.tb.seconds",
+    "w.sr.highlight",
+    "w.ls.spotlight",
+    "w.ls.tips",
+    "w.cp.copilot",
+    "w.cx.classic",
+    "w.tb.combine",
+    "w.ex.homeads",
+    "w.sys.f1",
+    "w.sys.sticky",
+    "w.tb.endtask2",
+    "a.uac",
+    "a.smartscreen",
+    "a.vbs",
+    "a.spectre",
+    "a.tpm",
+    "a.wu",
+    "a.defender",
+    "a.timer",
+    "a.debug",
+    "w.ex.fullpath",
+    "w.tb.endtask",
+    "w.ex.desktopicons",
+    "p.mouseaccel",
+    "w.sys.numlock",
+    "p.stickykeys",
+    "w.ex.battery",
+    "w.ex.scrollbars",
+    "p.longpaths",
+    "p.gpuschedule",
+    "p.storagesense",
+    "g.priority",
+    "pr.widgets",
+    "n.ipv6",
+    "f.wsl",
+    "f.hyperv",
+    "f.sandbox",
+    "f.vmp",
+    "f.net35",
+    "f.net48",
+    "f.smb1",
+    "f.smbdirect",
+    "f.telnet",
+    "f.tftp",
+    "f.powershell2",
+    "f.directplay",
+    "f.iis",
+    "f.wcf",
+    "f.printvirt",
+    "f.mediafeat",
+    "p.8dot3",
+    "p.largesys",
+    "p.lastaccess",
+    "p.mitigations",
+    "p.defenderscan",
+    "p.restore",
+    "p.thumbnails",
+    "p.ndu",
+    "w.tb.size",
+    "w.sn.layouts",
+    "w.sn.assist",
+    "w.wd.widgets",
+    "w.wd.feed",
+    "w.cx.copilot",
+    "w.ex.gallery",
+    "a.pagefile",
+    "g.mode",
+    "g.hags",
+    "g.mouse",
+    "n.nagle",
+    "n.autotune",
+    "n.rss",
+    "n.ecn",
+    "n.qos",
+    "n.netbios",
+    "n.llmnr",
+    "n.dnscache",
+    "p.compact",
+    "p.trim",
+    "p.onedrive",
+    "p.timer",
+    "p.schedtasks",
+    "s.dohtls",
+    "g.amdtelemetry",
+    "g.mpo"
+  ]
+}
