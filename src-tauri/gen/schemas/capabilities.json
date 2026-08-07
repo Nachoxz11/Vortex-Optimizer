@@ -1,1 +1,0 @@
-{"default":{"identifier":"default","description":"Permisos de la ventana principal de Vortex-Optimizer.","local":true,"windows":["main"],"permissions":["core:default","core:window:allow-start-dragging"]}}
