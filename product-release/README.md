@@ -1,10 +1,10 @@
-# Vortex Optimizer 1.0.1
+# Vortex Optimizer 1.0.2
 
 ## Descargar
 
 Descargá el instalador para Windows:
 
-[Vortex-Optimizer-1.0.1-setup.exe](./Vortex-Optimizer-1.0.1-setup.exe)
+[Vortex-Optimizer-1.0.2-setup.exe](./Vortex-Optimizer-1.0.2-setup.exe)
 
 ## Instalación
 
@@ -16,4 +16,4 @@ El instalador incluye las herramientas necesarias para utilizar la aplicación.
 
 ## Novedades
 
-- Lanzamiento inicial
+- Correcciones del actualizador y del inicio automático con Windows

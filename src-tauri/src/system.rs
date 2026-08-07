@@ -1522,34 +1522,69 @@ pub fn timer_resolution_set(_enabled: bool) -> Result<Value, String> {
 
 const RUN_KEY: &str = r"Software\Microsoft\Windows\CurrentVersion\Run";
 const RUN_VALUE_NAME: &str = "Vortex-Optimizer";
+const STARTUP_TASK_NAME: &str = "Vortex-Optimizer";
 
-pub fn start_with_windows_get() -> Result<Value, String> {
-    use winreg::enums::HKEY_CURRENT_USER;
-    use winreg::RegKey;
-
-    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let enabled = hkcu
-        .open_subkey(RUN_KEY)
-        .ok()
-        .and_then(|key| key.get_value::<String, _>(RUN_VALUE_NAME).ok())
-        .is_some();
-    Ok(serde_json::json!({ "enabled": enabled }))
+fn startup_task_exists() -> bool {
+    std::process::Command::new("schtasks.exe")
+        .args(["/Query", "/TN", STARTUP_TASK_NAME])
+        .output()
+        .map(|output| output.status.success())
+        .unwrap_or(false)
 }
 
-pub fn start_with_windows_set(enabled: bool) -> Result<Value, String> {
-    use winreg::enums::HKEY_CURRENT_USER;
-    use winreg::RegKey;
-
-    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+fn startup_task_set(enabled: bool) -> Result<(), String> {
     if enabled {
         let exe = std::env::current_exe()
             .map_err(|e| format!("No se pudo determinar la ruta del ejecutable: {e}"))?;
-        let (key, _) = hkcu
-            .create_subkey(RUN_KEY)
-            .map_err(|e| format!("No se pudo abrir {RUN_KEY}: {e}"))?;
-        key.set_value(RUN_VALUE_NAME, &format!("\"{}\"", exe.to_string_lossy()))
-            .map_err(|e| format!("No se pudo escribir el valor de inicio automático: {e}"))?;
-    } else if let Ok(key) = hkcu.open_subkey_with_flags(RUN_KEY, winreg::enums::KEY_SET_VALUE) {
+        let task_command = format!("\"{}\"", exe.to_string_lossy());
+        let output = std::process::Command::new("schtasks.exe")
+            .args([
+                "/Create",
+                "/TN",
+                STARTUP_TASK_NAME,
+                "/SC",
+                "ONLOGON",
+                "/TR",
+                &task_command,
+                "/RL",
+                "HIGHEST",
+                "/F",
+            ])
+            .output()
+            .map_err(|e| format!("No se pudo crear la tarea de inicio automático: {e}"))?;
+        if !output.status.success() {
+            return Err(format!(
+                "No se pudo crear la tarea de inicio automático: {}",
+                String::from_utf8_lossy(&output.stderr).trim()
+            ));
+        }
+    } else {
+        let output = std::process::Command::new("schtasks.exe")
+            .args(["/Delete", "/TN", STARTUP_TASK_NAME, "/F"])
+            .output()
+            .map_err(|e| format!("No se pudo quitar la tarea de inicio automático: {e}"))?;
+        if !output.status.success() && startup_task_exists() {
+            return Err(format!(
+                "No se pudo quitar la tarea de inicio automático: {}",
+                String::from_utf8_lossy(&output.stderr).trim()
+            ));
+        }
+    }
+    Ok(())
+}
+
+pub fn start_with_windows_get() -> Result<Value, String> {
+    Ok(serde_json::json!({ "enabled": startup_task_exists() }))
+}
+
+pub fn start_with_windows_set(enabled: bool) -> Result<Value, String> {
+    startup_task_set(enabled)?;
+
+    // Limpia la entrada antigua para evitar dos lanzamientos al iniciar sesión.
+    use winreg::enums::HKEY_CURRENT_USER;
+    use winreg::RegKey;
+    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+    if let Ok(key) = hkcu.open_subkey_with_flags(RUN_KEY, winreg::enums::KEY_SET_VALUE) {
         let _ = key.delete_value(RUN_VALUE_NAME);
     }
     Ok(serde_json::json!({ "ok": true }))

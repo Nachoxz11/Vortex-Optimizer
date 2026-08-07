@@ -403,8 +403,15 @@ async fn tools_open(app: tauri::AppHandle, file_name: String) -> Result<Value, S
 }
 
 #[tauri::command]
-async fn app_check_for_updates() -> Result<update::UpdateCheckResult, String> {
-    blocking(update::check_for_updates).await
+async fn app_check_for_updates(app: tauri::AppHandle) -> Result<update::UpdateCheckResult, String> {
+    let result = blocking(update::check_for_updates).await?;
+    if result.available {
+        tauri::async_runtime::spawn(async move {
+            std::thread::sleep(std::time::Duration::from_millis(1000));
+            app.exit(0);
+        });
+    }
+    Ok(result)
 }
 
 #[tauri::command]

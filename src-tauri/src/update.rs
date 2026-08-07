@@ -81,10 +81,12 @@ fn download_to_temp(installer_source: &str) -> Result<PathBuf, String> {
             .unwrap_or("xtweaks-installer.exe");
 
         let temp_dir = std::env::temp_dir().join("xtweaks-updates");
-        fs::create_dir_all(&temp_dir).map_err(|error| format!("No se pudo crear la carpeta temporal: {error}"))?;
+        fs::create_dir_all(&temp_dir)
+            .map_err(|error| format!("No se pudo crear la carpeta temporal: {error}"))?;
 
         let destination = temp_dir.join(file_name);
-        fs::copy(&source_path, &destination).map_err(|error| format!("No se pudo copiar el instalador local: {error}"))?;
+        fs::copy(&source_path, &destination)
+            .map_err(|error| format!("No se pudo copiar el instalador local: {error}"))?;
         return Ok(destination);
     }
 
@@ -94,7 +96,10 @@ fn download_to_temp(installer_source: &str) -> Result<PathBuf, String> {
         .map_err(|error| format!("No se pudo descargar el instalador: {error}"))?;
 
     if !response.status().is_success() {
-        return Err(format!("El servidor devolvió un estado inesperado: {}", response.status()));
+        return Err(format!(
+            "El servidor devolvió un estado inesperado: {}",
+            response.status()
+        ));
     }
 
     let file_name = installer_source
@@ -104,11 +109,15 @@ fn download_to_temp(installer_source: &str) -> Result<PathBuf, String> {
         .unwrap_or("xtweaks-installer.exe");
 
     let temp_dir = std::env::temp_dir().join("xtweaks-updates");
-    fs::create_dir_all(&temp_dir).map_err(|error| format!("No se pudo crear la carpeta temporal: {error}"))?;
+    fs::create_dir_all(&temp_dir)
+        .map_err(|error| format!("No se pudo crear la carpeta temporal: {error}"))?;
 
     let destination = temp_dir.join(file_name);
-    let bytes = response.bytes().map_err(|error| format!("No se pudieron leer los bytes del instalador: {error}"))?;
-    fs::write(&destination, bytes).map_err(|error| format!("No se pudo guardar el instalador en disco: {error}"))?;
+    let bytes = response
+        .bytes()
+        .map_err(|error| format!("No se pudieron leer los bytes del instalador: {error}"))?;
+    fs::write(&destination, bytes)
+        .map_err(|error| format!("No se pudo guardar el instalador en disco: {error}"))?;
     Ok(destination)
 }
 
@@ -117,13 +126,24 @@ fn launch_installer(path: &Path) -> Result<(), String> {
     {
         use std::os::windows::process::CommandExt;
         const CREATE_NO_WINDOW: u32 = 0x0800_0000;
-        let _status = Command::new("cmd")
-            // NSIS acepta /S para ejecutar la instalación sin interfaz ni
-            // confirmaciones. currentUser evita además una solicitud de UAC.
-            .args(["/C", "start", "", path.to_string_lossy().as_ref(), "/S"])
+
+        let application = std::env::current_exe()
+            .map_err(|error| format!("No se pudo resolver el ejecutable actual: {error}"))?;
+        let installer = powershell_literal(path);
+        let application = powershell_literal(&application);
+        let parent_pid = std::process::id();
+        let script = format!(
+            "$parent = Get-Process -Id {parent_pid} -ErrorAction SilentlyContinue; if ($parent) {{ $parent.WaitForExit() }}; $setup = Start-Process -FilePath '{installer}' -ArgumentList '/S' -PassThru -Wait; if ($setup.ExitCode -eq 0) {{ Start-Process -FilePath '{application}' }}",
+            parent_pid = parent_pid,
+            installer = installer,
+            application = application,
+        );
+
+        Command::new("powershell.exe")
+            .args(["-NoProfile", "-WindowStyle", "Hidden", "-Command", &script])
             .creation_flags(CREATE_NO_WINDOW)
             .spawn()
-            .map_err(|error| format!("No se pudo lanzar el instalador: {error}"))?;
+            .map_err(|error| format!("No se pudo preparar el reinicio automático: {error}"))?;
         Ok(())
     }
 
@@ -136,6 +156,11 @@ fn launch_installer(path: &Path) -> Result<(), String> {
     }
 }
 
+#[cfg(windows)]
+fn powershell_literal(path: &Path) -> String {
+    path.to_string_lossy().replace('\'', "''")
+}
+
 pub fn check_for_updates() -> Result<UpdateCheckResult, String> {
     let current_version = env!("CARGO_PKG_VERSION").to_string();
     let manifest_source = manifest_source().ok_or_else(|| {
@@ -145,30 +170,41 @@ pub fn check_for_updates() -> Result<UpdateCheckResult, String> {
     let manifest: UpdateManifest = if Path::new(&manifest_source).exists() {
         let text = fs::read_to_string(&manifest_source)
             .map_err(|error| format!("No se pudo leer el manifiesto local: {error}"))?;
-        serde_json::from_str(&text).map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
+        serde_json::from_str(&text)
+            .map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
     } else if let Some(path) = manifest_source.strip_prefix("file://") {
         let text = fs::read_to_string(path)
             .map_err(|error| format!("No se pudo leer el manifiesto local: {error}"))?;
-        serde_json::from_str(&text).map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
+        serde_json::from_str(&text)
+            .map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
     } else {
         let response = reqwest::blocking::Client::new()
             .get(&manifest_source)
             .send()
-            .map_err(|error| format!("No se pudo contactar al endpoint de actualizaciones: {error}"))?;
+            .map_err(|error| {
+                format!("No se pudo contactar al endpoint de actualizaciones: {error}")
+            })?;
 
         if !response.status().is_success() {
-            return Err(format!("El endpoint devolvió un error {}.", response.status()));
+            return Err(format!(
+                "El endpoint devolvió un error {}.",
+                response.status()
+            ));
         }
 
-        let text = response.text().map_err(|error| format!("No se pudo leer el manifiesto de actualización: {error}"))?;
-        serde_json::from_str(&text).map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
+        let text = response
+            .text()
+            .map_err(|error| format!("No se pudo leer el manifiesto de actualización: {error}"))?;
+        serde_json::from_str(&text)
+            .map_err(|error| format!("El manifiesto de actualización no es válido: {error}"))?
     };
 
     if manifest.url.trim().is_empty() {
         return Err("El manifiesto no incluye una URL de descarga válida.".to_string());
     }
 
-    let comparison = compare_versions(&current_version, &manifest.version).unwrap_or(std::cmp::Ordering::Equal);
+    let comparison =
+        compare_versions(&current_version, &manifest.version).unwrap_or(std::cmp::Ordering::Equal);
 
     match comparison {
         std::cmp::Ordering::Greater | std::cmp::Ordering::Equal => Ok(UpdateCheckResult {
@@ -189,7 +225,8 @@ pub fn check_for_updates() -> Result<UpdateCheckResult, String> {
                 latest_version: Some(manifest.version),
                 notes: manifest.notes,
                 downloaded: true,
-                message: "Se encontró una actualización nueva y se inició el instalador.".to_string(),
+                message: "Se encontró una actualización nueva y se inició el instalador."
+                    .to_string(),
                 installer_path: Some(installer_path.to_string_lossy().into_owned()),
             })
         }

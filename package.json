@@ -1,6 +1,6 @@
 {
   "name": "vortex-optimizer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Vortex-Optimizer — Fluent-inspired Windows 11 optimization app (Tauri + React)",
   "type": "commonjs",
