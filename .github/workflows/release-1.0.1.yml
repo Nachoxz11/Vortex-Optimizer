@@ -93,6 +93,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         shell: pwsh
         run: |
+          npx vercel@latest link --yes --project $env:VERCEL_PROJECT_ID --scope $env:VERCEL_ORG_ID --token $env:VERCEL_TOKEN
           npx vercel@latest pull --yes --environment=production --token $env:VERCEL_TOKEN
           npx vercel@latest build --prod --token $env:VERCEL_TOKEN
           npx vercel@latest deploy --prebuilt --prod --token $env:VERCEL_TOKEN
