@@ -1,18 +1,19 @@
-# Vortex Optimizer
+# Vortex Optimizer 1.0.1
 
-Vortex Optimizer is a Windows 11 optimization app — performance tuning, gaming tweaks, cleanup, privacy controls, startup management and more, all in one place.
+## Descargar
 
-## Download
+Descargá el instalador para Windows:
 
-Download the Windows installer directly: [**Vortex-Optimizer-1.0.2-setup.exe**](./Vortex-Optimizer-1.0.2-setup.exe).
+[Vortex-Optimizer-1.0.1-setup.exe](./Vortex-Optimizer-1.0.1-setup.exe)
 
-## Install
+## Instalación
 
-1. Download `Vortex-Optimizer-1.0.2-setup.exe` from this repository.
-2. Run it — no admin rights required, it installs for your user only.
-3. Launch **Vortex Optimizer** from the Start Menu.
+1. Descargá el archivo `.exe`.
+2. Ejecutá el instalador.
+3. Seguí los pasos del asistente.
 
-## Requirements
+El instalador incluye las herramientas necesarias para utilizar la aplicación.
 
-- Windows 10/11 (64-bit)
-- [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/) (preinstalled on most up-to-date Windows systems)
+## Novedades
+
+- Lanzamiento inicial
